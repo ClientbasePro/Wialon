@@ -3,11 +3,9 @@
   // Интеграция CRM Clientbase с сервисом мониторинга транспорта Виалон (Wialon)
   // https://ClientbasePro.ru
   // docs.wialon.com, https://sdk.wialon.com/wiki/ru/sidebar/start
-  
-require_once 'common.php'; 
 
   // функция выполняет произвольный запрос к Wialon к сервису (string)$someService с параметрами (array)$params и (array)$toGETparams
-function GetWialonData($someService, $params, $toGETparams) {
+function GetWialonData($someService='', $params=[], $toGETparams=[]) {
   if (!$someService) return false;
   $url = WIALON_URL;
   $url .= $someService;
@@ -26,11 +24,9 @@ function GetWialonSID() {
 }
 
   // функция разлогинивает подключение к WIALON, возвращает bool результат
-function LogoutWialon($SID) {
+function LogoutWialon($SID='') {
   if (!$SID) return false;
   $answer = json_decode(GetWialonData('core/logout', '', array('sid'=>$SID)), true);
   if (0==$answer['error']) return true;
   return false;
 }
-
-?>
