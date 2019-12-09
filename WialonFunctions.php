@@ -17,8 +17,10 @@ function GetWialonData($someService='', $params=[], $toGETparams=[]) {
 }
 
   // функция возвращает Wialon Session ID
-function GetWialonSID() {
-  $answer = json_decode(GetWialonData('token/login',array('token'=>WIALON_TOKEN)), true); 
+function GetWialonSID($token) {
+  if (!$token && defined(WIALON_TOKEN)) $token = WIALON_TOKEN;
+  if (!$token) return false;
+  $answer = json_decode(GetWialonData('token/login',array('token'=>$token)), true); 
   if ($answer=$answer['eid']) return $answer;
   return false;
 }
