@@ -7,8 +7,8 @@
   // функция выполняет произвольный запрос к Wialon к сервису (string)$someService с параметрами (array)$params и (array)$toGETparams на URL $someURL
 function GetWialonData($someService='', $params=[], $toGETparams=[], $someURL='') {
   if (!$someService) return false;
-  $url = ($someURL) ? $someURL : (defined(WIALON_URL)?WIALON_URL:'');
-  if (!$url) return false;
+  $url = ($someURL) ? $someURL : WIALON_URL;
+  if (!$url || 'WIALON_URL'==$url) return false;
   $url .= $someService;
   $url .= ($params) ? '&params='.json_encode($params) : '&params={}';
   if ($toGETparams) $url .= '&'.http_build_query($toGETparams);  
